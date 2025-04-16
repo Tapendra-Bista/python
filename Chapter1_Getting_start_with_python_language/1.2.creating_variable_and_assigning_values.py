@@ -1,5 +1,5 @@
 """
-1.There is no to declare in advance in python
+1.There is no need  to declare in advance in python
 2.You can assign a value without Type declaration
 3. You can assign a value to a variable using the assignment operator (=).
 syntax : <variable_name> = <value>
