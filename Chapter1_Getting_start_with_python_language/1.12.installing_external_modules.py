@@ -42,5 +42,4 @@ from rembg import remove
 input_image = Image.open("spider.jpg")
 output = remove(input_image)
 
-output.save("output.jpg")
 output.show()
