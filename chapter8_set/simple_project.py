@@ -37,6 +37,6 @@ print("\t\t\t\t")
 for key,value in Option.items():
     print(key,value)
 
-userInput = int(input("Chose operation from above: "))
+userInput = int(input("Choose operation from above: "))
 
 operations(userChoice=userInput,set1 = set1,set2=set2)
