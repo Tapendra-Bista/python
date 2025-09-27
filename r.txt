@@ -1,0 +1,1 @@
+Hello this is an example of mode r. This mode is used for read only mode in file. For this file must be exits to perform action

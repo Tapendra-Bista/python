@@ -1,0 +1,1 @@
+This is an example of w.text	This is an append string ,for this  file must be already exist

@@ -1,0 +1,1 @@
+This is an example of w+ where we first write after that we can read file simple.
