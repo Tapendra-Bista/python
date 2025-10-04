@@ -1,6 +1,6 @@
 # Tuples are immutable 
 
-# Tuples  cannot be upadate or modify   after its defined 
+# Tuples  cannot be update or modify   after its defined 
 
 # example 
 
