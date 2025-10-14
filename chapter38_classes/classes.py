@@ -495,6 +495,10 @@ print ( isinstance(a,FooBar))
 print (isinstance(a,Foo))
 print (isinstance(a,Bar))
 
+print(isinstance(foobar2, FooBar2))
+print(isinstance(foobar2, Foo2))
+print(isinstance(foobar2, Bar2))
+
 
 # 8: properties
 # Python classes support properties, which look like regular object variables, but with the possibility of attaching
@@ -616,3 +620,83 @@ print(c1.y) # prints 3
 
 c1.X = 99
 print(c1.X)  # prints 99 
+
+
+# Section 38.11: Class composition
+
+
+# Class composition allows explicit relations between objects. In this example, people live in cities that belong to
+# countries. Composition allows people to access the number of all people living in their country:
+
+class Country(object):
+    def __init__(self) -> None:
+        self.cities = []
+
+    def add_city(self,city):
+        self.cities.append(city)    
+
+
+
+class City(object):
+    def __init__(self,numPeople) -> None:
+        self.numpeople = numPeople
+        self.people = []
+
+    def add_person(self,person):
+        self.people.append(person)
+
+    def join_country(self,country):
+        # Link city to country; do not call self.people(...)
+        self.country = country
+        country.add_city(self)
+
+
+
+class Person(object):
+    def __init__(self,ID) -> None:
+        self.ID = ID 
+
+    def join_city(self,city):
+        self.city = city
+        city.add_person(self)    
+
+    def people_in_my_country(self):
+        return sum(len(c.people) for c in self.city.country.cities)
+# Create instances OUTSIDE the class body
+Us = Country()
+NYC = City(1000)
+NYC.join_country(Us)
+for i in range(NYC.numpeople):
+    Person(i).join_city(NYC)
+
+print(Us.cities[0].people[0].people_in_my_country())  # prints 1000
+
+
+
+
+
+# 12: Listing All Class Members 
+# the dir () function can be used to  get a list of the member of a class:
+print(dir(Country))
+
+
+
+
+
+# Section 38.14: Descriptors and Dotted Lookups
+
+
+# Descriptors are objects that are (usually) attributes of classes and that have any of __get__, __set__, or
+# __delete__ special methods.
+# Data Descriptors have any of __set__, or __delete__
+# These can control the dotted lookup on an instance, and are used to implement functions, staticmethod,
+# classmethod, and property. A dotted lookup (e.g. instance foo of class Foo looking up attribute bar - i.e. foo.bar)
+# uses the following algorithm:
+# bar is looked up in the class, Foo. If it is there and it is a Data Descriptor, then the data descriptor is used.1.
+# That's how property is able to control access to data in an instance, and instances cannot override this. If a
+# Data Descriptor is not there, then
+# bar is looked up in the instance __dict__. This is why we can override or block methods being called from an2.
+# instance with a dotted lookup. If bar exists in the instance, it is used. If not, we then
+# look in the class Foo for bar. If it is a Descriptor, then the descriptor protocol is used. This is how functions3.
+# (in this context, unbound methods), classmethod, and staticmethod are implemented. Else it simply returns
+# the object there, or there is an AttributeError

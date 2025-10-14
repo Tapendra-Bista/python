@@ -1,0 +1,2 @@
+# A package is made up of multiple Python files (or modules), and can even include libraries written in C or C++.
+# Instead of being a single file, it is an entire folder structure which might look like this:
